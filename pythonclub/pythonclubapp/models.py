@@ -1,6 +1,7 @@
 from django.db import models
 
 from django.contrib.auth.models import User
+
 # Create your models here.
 class Meeting(models.Model):
     meeting_title = models.CharField(max_length=255)
@@ -31,7 +32,7 @@ class Resource(models.Model):
     description = models.TextField()
 
     def __str__(self):
-        return self.Resource
+        return self.resource_name
     
 class Event(models.Model):
     event_title = models.CharField(max_length=255)
