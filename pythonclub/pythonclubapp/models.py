@@ -8,6 +8,7 @@ class Meeting(models.Model):
     meeting_date = models.DateField()
     meeting_time = models.CharField(max_length=255)
     location = models.CharField(max_length=255)
+    
     def __str__(self):
         return self.meeting_title
 
