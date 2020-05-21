@@ -19,5 +19,4 @@ def getMeetingDetails(request, id):
     context={
         'meet_details': meet_details
     }
-
     return render(request, 'pythonclubapp/meetingdetails.html', context = context)

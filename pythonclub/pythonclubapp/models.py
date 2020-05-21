@@ -1,5 +1,4 @@
 from django.db import models
-
 from django.contrib.auth.models import User
 
 # Create your models here.
@@ -14,7 +13,7 @@ class Meeting(models.Model):
 
     class Meta:
         db_table='meeting'
-        verbose_name_plural='meeting'
+        verbose_name_plural='meetings'
 
 class MeetingMinutes(models.Model):
     meeting_id = models.ForeignKey(Meeting, on_delete=models.DO_NOTHING)
@@ -23,6 +22,9 @@ class MeetingMinutes(models.Model):
 
     def __str__(self):
         return self.meeting_id
+    class Meta:
+        db_table='MeetingMinute'
+        verbose_name_plural='MeetingMinutes'
 
 class Resource(models.Model):
     resource_name = models.CharField(max_length=255)
@@ -34,6 +36,9 @@ class Resource(models.Model):
 
     def __str__(self):
         return self.resource_name
+    class Meta:
+        db_table='Resource'
+        verbose_name_plural='Resources'
     
 class Event(models.Model):
     event_title = models.CharField(max_length=255)
@@ -45,6 +50,9 @@ class Event(models.Model):
 
     def __str__(self):
         return self.event_title
+    class Meta:
+        db_table='Event'
+        verbose_name_plural='Events'
 
 
 
