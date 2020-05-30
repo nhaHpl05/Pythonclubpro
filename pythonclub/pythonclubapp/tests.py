@@ -4,6 +4,7 @@ from django.urls import reverse
 from django.contrib.auth.models import User
 from .models import Meeting, MeetingMinutes, Resource, Event
 from .views import index, getResource, getMeeting, getMeetingDetails
+from .forms import MeetingForm, ResourceForm
 
 # Create your tests here.
 
@@ -67,7 +68,19 @@ class TestMeetingDetail(TestCase):
         response = self.client.get(reverse('meetingdetails', args=(self.meet.id,)))
         # Assert that self-post is actually return by the post-detail view
         self.assertEqual(response.status_code, 200)
+class Form_Meeting_Test(TestCase):
+    def test_typeform_is_valid(self):
+        form = MeetingForm(data = {'meeting_title' : "meeting test", 'meeting_date': "2020-06-03", 'meeting_time': "2:30 p.m"})
+        self.assertTrue(form.is_valid())
 
+    def test_typeform_title(self):
+        form = MeetingForm(data = {'meeting_title' : "meeting test"})
+        self.assertTrue(form.is_valid())
+
+class Form_Resource_Test(TestCase):
+    def test_typeform_is_valid(self):
+        form = ResourceForm(data = {'resource_name': "resource1", 'resource_type': "resourcetype", 'date_entered': "2020-05-12", 'user_id': "me", 'description': "one description"})
+        self.assertTrue(form.is_valid())
         
 
     
