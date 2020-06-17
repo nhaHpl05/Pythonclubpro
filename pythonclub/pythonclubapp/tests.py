@@ -81,7 +81,25 @@ class Form_Resource_Test(TestCase):
     def test_typeform_is_valid(self):
         form = ResourceForm(data = {'resource_name': "resource1", 'resource_type': "resourcetype", 'date_entered': "2020-05-12", 'user_id': "me", 'description': "one description"})
         self.assertTrue(form.is_valid())
-        
+
+#Test authentication
+
+class Create_Meeting_with_Resource_authentication():
+    def setUp(self):
+        self.test_user = User.objects.create_user(username='testuser1', password='Password1')
+        self.meeting = Meeting.objects.create(meeting_title='python disscuss')
+        self.resource = Resource.objects.create(resource_name='django turtorial', resource_type='tutorial', URL='django.turtorial.com' )
+    
+    def test_redirect_if_not_logged_in(self):
+        response = self.client.get(reverse('resourceform'))
+        self.assertRedirects(response, '/accounts/login/?next=/pythonclubapp/FormResource/')
+
+    def test_Logged_in_uses_correct_template(self):
+        login = self.client.login(username='testuser1', password='Password1')
+        response = self.client.get(reverse('resourceform'))
+        self.assertEqual(str(response.context['user'],'testuser1'))
+        self.assertEqual(response.status_code, 200)
+        self.assertTemplateUsed(response, 'pythonclubapp/resourceform.html')
 
     
     
